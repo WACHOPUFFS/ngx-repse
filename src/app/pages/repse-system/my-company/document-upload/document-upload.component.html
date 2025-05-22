@@ -43,7 +43,7 @@
                         <th class="d-none d-sm-table-cell">Periodicidad</th>
                         <th class="d-none d-md-table-cell">Fecha límite</th>
                         <th>Estado</th>
-                        <th>Progreso</th>
+                        <th>Progreso del periodo</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -151,7 +151,7 @@
                             <th class="d-none d-sm-table-cell">Periodicidad</th>
                             <th class="d-none d-md-table-cell">Fecha límite</th>
                             <th>Estado</th>
-                            <th>Progreso</th>
+                            <th>Progreso del periodo</th>
                             <th>Acciones</th>
                           </tr>
                         </thead>
@@ -445,7 +445,7 @@
         <thead>
           <tr>
             <th class="text-center">Formato</th>
-            <th class="text-center">Progreso</th>
+            <th class="text-center">Archivos cargados</th>
             <th class="text-center">Acción</th>
           </tr>
         </thead>
@@ -495,7 +495,7 @@
           *ngIf="selectedDocumentForUpload"
           (click)="openPreviewModal()"
         >
-          Revisar ({{ previewFiles.length }})
+          Revisar ({{ reviewFiles.length }})
         </button>
       </div>
     </nb-card-footer>
@@ -506,19 +506,21 @@
 <ng-template #previewModal let-ref="dialogRef">
   <nb-card class="mx-auto custom-modal">
     <nb-card-header>
-      Previsualizar archivos cargados
-      <button
-        nbButton
-        ghost
-        size="small"
-        class="float-right"
-        (click)="closeModal()"
-      >
-        <nb-icon icon="close-outline"></nb-icon>
-      </button>
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="mr-4">Previsualizar archivos cargados</span>
+        <button
+          nbButton
+          ghost
+          size="small"
+          class="float-right"
+          (click)="closeModal()"
+        >
+          <nb-icon icon="close-outline"></nb-icon>
+        </button>
+      </div>
     </nb-card-header>
     <nb-card-body>
-      <table class="table table-hover">
+      <table *ngIf="previewFiles.length > 0" class="table table-hover">
         <thead>
           <tr class="text-center">
             <th>Archivo</th>
@@ -527,7 +529,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let file of previewFiles">
+          <tr *ngFor="let file of reviewFiles">
             <td class="align-middle">
               {{ file.name }}
             </td>
@@ -559,7 +561,7 @@
         </tbody>
       </table>
       <div *ngIf="previewFiles.length === 0" class="text-center mt-3">
-        <nb-alert status="info">No hay archivos cargados aún.</nb-alert>
+        <nb-alert status="info">No hay archivos cargados aún</nb-alert>
       </div>
     </nb-card-body>
     <nb-card-footer class="text-end">

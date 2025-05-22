@@ -318,7 +318,13 @@ export class DocumentService {
   getUploadedFiles(
     requiredFileId: number,
     periodId: number,
-    statuses: string[] = ["uploaded", "pending", "approved", "rejected"]
+    statuses: string[] = [
+      "uploaded",
+      "pending",
+      "approved",
+      "rejected",
+      "expired",
+    ]
   ): Observable<any[]> {
     const params = new HttpParams()
       .set("required_file_id", requiredFileId.toString())
@@ -476,10 +482,6 @@ export class DocumentService {
     }
 
     return { valid: true };
-  }
-
-  private formatDate(date: Date): string {
-    return moment(date).format("DD/MM/YYYY");
   }
 
   async extractRepseDates(
